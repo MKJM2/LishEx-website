@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import image from '../assets/authentication.svg'
+import image from '../assets/authentication_two_color.svg'
 
 
 const Register = ({history}) => {
@@ -36,7 +36,7 @@ const Register = ({history}) => {
 
 	return (
 		<div>
-			<p>Register Page</p>
+			<h1>Register Page</h1>
 			<img src={image} alt="Image"/>
 		</div>
 	)

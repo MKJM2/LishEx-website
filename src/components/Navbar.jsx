@@ -89,8 +89,8 @@ class NavBar extends Component {
     const { visible } = this.state;
 
     const leftItems = [
-	  { as: "a", content: "Home", key: "home" },
-	  { as: "a", content: "Users", key: "users" }
+	  { as: "a", content: "Home", key: "home", href:"/"},
+	  { as: "a", content: "Users", key: "users", href:"/users"}
 	];
     const rightItems = [
 	  { as: "a", content: "Register", key: "register", href: "/register"}
