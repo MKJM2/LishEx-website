@@ -37,13 +37,13 @@ export function Exercise(_props) {
 	  {`//Example response\n{
 	  "0": {
 		"tags": [],
-		"_id": "5f32ddcda73ec62184007695",
-		"section": "Section 1",
-		"category": "Category 1",
-		"subcategory": "Subcategory 1",
-		"exerciseCategory": "Exercise Category 1",
-		"answer": "Answer 1",
-		"question": "Question 1"
+		"_id": "123456789012345678901234",
+		"section": "Section",
+		"category": "Category",
+		"subcategory": "Subcategory",
+		"exerciseCategory": "Exercise Category",
+		"answer": "Answer",
+		"question": "Question"
 		}
 }`}
 	</code></pre>
