@@ -16,7 +16,7 @@ export const loginSlice = createSlice({
 	    if(action.payload.data.accessToken){
 		    state.isLoggedIn = true
 		    authenticate(action.payload.data, action.payload.rememberMe, () => {
-			    console.log("Authentication Cookie set!")
+			    //console.log("Authentication Cookie set!")
 		    })
 	    }
     },

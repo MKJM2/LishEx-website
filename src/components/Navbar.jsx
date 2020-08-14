@@ -6,7 +6,8 @@ import {
   Image,
   Menu,
   Sidebar,
-  Responsive
+  Responsive,
+  Grid
 } from "semantic-ui-react";
 import icon from '../assets/drawing.svg'
 import { Link } from 'react-router-dom'
@@ -55,16 +56,25 @@ const NavBarMobile = ({
 );
 
 const NavBarDesktop = ({ leftItems, rightItems }) => (
-  <Menu size="huge" fixed="top" secondary>
-    <Menu.Item header>
-      <Image size="mini" verticalAlign="middle" src={icon} href="/"/>
-    </Menu.Item>
-    {_.map(leftItems, item => <Menu.Item {...item} />)}
-    <Menu.Menu position="right">
-      <LoginModal/>
-      {_.map(rightItems, item => <Menu.Item {...item} />)}
-    </Menu.Menu>
-  </Menu>
+<Grid>
+  <Grid.Column computer={3} tablet={1} mobile={0}/>
+	
+  <Grid.Column computer={10} tablet={14} mobile={16}>
+	  <Menu size="huge" secondary>
+	    <Menu.Item header>
+	      <Image size="mini" verticalAlign="middle" src={icon} href="/"/>
+	    </Menu.Item>
+	    {_.map(leftItems, item => <Menu.Item {...item} />)}
+	    <Menu.Menu position="right">
+	      <LoginModal/>
+	      {_.map(rightItems, item => <Menu.Item {...item} />)}
+	    </Menu.Menu>
+	  </Menu>
+  </Grid.Column>
+
+  <Grid.Column computer={3} tablet={1} mobile={0}/>
+
+</Grid>
 );
 
 export const NavBarChildren = ({ children }) => (

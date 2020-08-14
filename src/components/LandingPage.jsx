@@ -17,13 +17,13 @@ function LandingPage() {
   <Grid  columns={4} stackable stretched >
     <Grid.Row >
 
-	    <Grid.Column floated='left' width={2}/>
+	    <Grid.Column floated='left' width={3}/>
 
-	    <Grid.Column key={"background"} width={7}>
+	    <Grid.Column key={"background"} width={6}>
 		    <Image fluid verticalAlign='middle' centered='true' src={backgroundImage}/>
 	    </Grid.Column>
 
-	    <Grid.Column width={5}>
+	    <Grid.Column width={4}>
 
 
 	  	    <Segment basic>
@@ -36,7 +36,7 @@ function LandingPage() {
 	  	
 	    </Grid.Column>
 
-	    <Grid.Column floated='right' width={2}/>
+	    <Grid.Column floated='right' width={3}/>
 
     </Grid.Row>
   </Grid>
