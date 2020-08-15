@@ -71,7 +71,6 @@ export const signout = next => {
 export const isAuth = () => {
 	if(window!=="undefined"){
 		const cookieChecked = getCookie('ATKN')
-		console.log(cookieChecked)
 		if(cookieChecked){
 			//Return userID from LocalStorage?
 			return true

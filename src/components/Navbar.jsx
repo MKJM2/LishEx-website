@@ -78,7 +78,7 @@ const NavBarDesktop = ({ leftItems, rightItems }) => (
 );
 
 export const NavBarChildren = ({ children }) => (
-  <Container fluid style={{ marginTop: "2em" }}>{children}</Container>
+  <Container fluid style={{ marginTop: "3em" }}>{children}</Container>
 );
 
 class NavBar extends Component {

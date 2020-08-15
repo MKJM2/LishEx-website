@@ -26,7 +26,21 @@ function App() {
 	  </Route>
 
 	  <Route path='/register' exact>
+		<NavBar>
 	  	<Register/>
+	  	</NavBar>
+	  </Route>
+
+	  <Route path='/dashboard' exact>
+	  	<div>
+	  	DASHBOARD HERE
+	  	</div>
+	  </Route>
+
+	  <Route path='/'>
+		<div>
+		404 Not Found
+		</div>
 	  </Route>
 
 	</Switch>

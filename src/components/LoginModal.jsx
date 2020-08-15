@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,6 +9,7 @@ import {
   selectIsLoggingIn,
   selectFailed
 } from '../features/login/loginSlice';
+import {isAuth} from '../features/login/helpers'
 
 import { Button, Icon, Divider, Grid, Header, Image, Modal, Menu, Checkbox, Form, Segment } from 'semantic-ui-react'
 import authSvg from '../assets/authentication.svg'
@@ -48,6 +49,8 @@ function LoginModal() {
   const debugging = false
 
   return (
+  <>
+    {isAuth() ? <Redirect to="/dashboard"/> : null}
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
@@ -64,6 +67,7 @@ function LoginModal() {
 	  </Grid.Column>
 	  <Grid.Column verticalAlign='middle' width={6}>
 	  <Segment basic={!debugging} textAlign='center'>
+
 		  <Header size='huge' textAlign='center'>Login to LishEx</Header>
 		  <Header.Subheader>
 		  Check out our very cool website!
@@ -109,6 +113,7 @@ function LoginModal() {
 	</Grid.Row>
     </Grid>
     </Modal>
+  </>
   )
 }
 
