@@ -70,9 +70,11 @@ export const signout = next => {
 //Get user info from localStorage
 export const isAuth = () => {
 	if(window!=="undefined"){
-		const cookieChecked = getCookie('token')
+		const cookieChecked = getCookie('ATKN')
+		console.log(cookieChecked)
 		if(cookieChecked){
-			return JSON.parse(localStorage.getItem('user'))
+			//Return userID from LocalStorage?
+			return true
 		} else {
 			return false
 		}
