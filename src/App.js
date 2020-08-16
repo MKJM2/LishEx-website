@@ -9,6 +9,7 @@ import  LandingPage  from './components/LandingPage'
 import LoginModal from './components/LoginModal'
 import Register from './components/Register'
 import Dashboard from './components/Dashboard'
+import NotFound from './components/NotFound'
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 ///782144
 
@@ -38,9 +39,7 @@ function App() {
 	
 	  //Any route not exactly matched returns the 404 page
 	  <Route path='/'>
-		<div>
-		404 Not Found
-		</div>
+	  	<NotFound/>
 	  </Route>
 
 	</Switch>
