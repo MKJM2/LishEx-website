@@ -100,7 +100,7 @@ class NavBar extends Component {
 
     const leftItems = [
 	  { as: "a", content: "Home", key: "home", href:"/"},
-	  { as: "a", content: "Users", key: "users", href:"/users"}
+	  { as: "a", content: "Dashboard", key: "dashboard", href:"/dashboard"}
 	];
     const rightItems = [
 	  { as: "a", content: "Register", key: "register", href: "/register"}

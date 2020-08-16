@@ -1,11 +1,17 @@
 import React from 'react'
 import { useEffect } from 'react';
-import { Logo } from './Logo'
+
+
 import { NavBar } from './Navbar'
 import { Exercise } from '../features/exercise/Exercise.js'
-import styles from '../styles.css'
+import Footer from './Footer'
+
+import '../styles.css'
 import { Grid, Image, Segment } from 'semantic-ui-react'
+
 import backgroundImage from '../assets/graduation.svg'
+import { Logo } from './Logo'
+
 import Prism from 'prismjs'
 import "../prism.css"
 ///782144
@@ -40,6 +46,7 @@ function LandingPage() {
 
     </Grid.Row>
   </Grid>
+  <Footer/>
 </div>
   );
 }

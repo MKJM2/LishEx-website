@@ -8,6 +8,7 @@ import backgroundImage from './assets/graduation.svg'
 import  LandingPage  from './components/LandingPage'
 import LoginModal from './components/LoginModal'
 import Register from './components/Register'
+import Dashboard from './components/Dashboard'
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 ///782144
 
@@ -32,11 +33,10 @@ function App() {
 	  </Route>
 
 	  <Route path='/dashboard' exact>
-	  	<div>
-	  	DASHBOARD HERE
-	  	</div>
+	  	<Dashboard />
 	  </Route>
-
+	
+	  //Any route not exactly matched returns the 404 page
 	  <Route path='/'>
 		<div>
 		404 Not Found
