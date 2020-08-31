@@ -12,6 +12,7 @@ export const dashboardSlice = createSlice({
 	  level: '',
 	  experience: '',
 	  exercises: [],
+	  essay: '',
 	  isLoggedIn: false,
 	  isFetchingUserData: false,
 	  userDataFetched: false,
@@ -21,7 +22,7 @@ export const dashboardSlice = createSlice({
     setUserData: (state, action) => {
 
 	    if(action.payload.data){
-	    	    let { userID, firstName, lastName, role, level, experience, exercises} = action.payload.data
+	    	    let { userID, firstName, lastName, role, level, experience, exercises, essay} = action.payload.data
 
 		    //That's just stupid but it works
 		    state.userID = userID
@@ -31,6 +32,7 @@ export const dashboardSlice = createSlice({
 		    state.level = level
 		    state.experience = experience
 		    state.exercises = exercises
+		    state.essay = essay
 		    state.userDataFetched = true
 	    }
     },
@@ -121,6 +123,8 @@ export const selectLevel = state => state.dashboard.level
 export const selectExperience = state => state.dashboard.experience
 
 export const selectUserExercises = state => state.dashboard.exercises
+
+export const selectUserEssay = state => state.dashboard.essay
 
 export const selectIsFetchingData = state => state.dashboard.isFetchingUserData
 

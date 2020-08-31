@@ -12,10 +12,16 @@ import {
   List,
   Menu,
   Segment,
-  Button
+  Progress,
+  Button,
+  Card,
+  Icon,
+	Breadcrumb,
+	Label
 } from 'semantic-ui-react'
 
 import {isAuth, removeCookie} from '../features/login/helpers'
+import Footer from '../components/Footer'
 
 import {
 	getAuthenticatedUserID,
@@ -32,29 +38,38 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 
 
-function Dashboard() {
+const ExerciseListCard = (title, breadcrumbs, percentage, tag, color) => (
+  <Card fluid style={{marginRight: '0'}} href={`/section/${breadcrumbs.section}/category/${breadcrumbs.category}/subcategory/${breadcrumbs.subcategory}/unit/${title}`}>
+    <Card.Content>
+      <Card.Header>{title}</Card.Header>
+      <Card.Meta>
+		  {unitBreadcrumbs(breadcrumbs.section,breadcrumbs.category,breadcrumbs.subcategory)}
+      </Card.Meta>
+      <Card.Description>
+	  {percentage}% Finished
+      </Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+			<Label basic as='a' color={color}>
+				{tag}
+			</Label>
+    </Card.Content>
+  </Card>
+)
 
-	const dispatch = useDispatch()
-	const userID = useSelector(selectUserID)
-	const firstName = useSelector(selectFirstName)
-	const lastName = useSelector(selectLastName)
-	const role = useSelector(selectRole)
-	const level = useSelector(selectLevel)
-	const experience = useSelector(selectExperience)
-	const exercises = useSelector(selectUserExercises)
-	const isFetchingUserData = useSelector(selectIsFetchingData)
-	const userDataFetched = useSelector(selectUserDataFetched)
-	const userData = {userID, firstName, lastName, role, level, experience, exercises}
+const unitBreadcrumbs = (section, category, subcategory) => {
+  
+  let sections = [{key:section, content:section, href: `/section/${section}`},
+    {key:category, content:category, href: `/section/${section}/category/${category}`},
+    {key:subcategory, content:subcategory, href: `/section/${section}/category/${category}/subcategory/${subcategory}`}
+  ]
+  return (
+    <Breadcrumb icon='right angle' sections={sections}/>
+  )  
+}
 
-	useEffect(() => {
-		dispatch(getAuthenticatedUserID())
-	}, [userDataFetched])
-
-
-	return (
-	  <div>
-	    {!isAuth() ? <Redirect to="/" /> : null}
-	    <Menu secondary size="huge">
+export const DashboardMenu = () => (
+	  <Menu secondary size="huge">
 	      <Container>
 		<Menu.Item>
 		  <Image size='mini' src={Logo} />
@@ -89,91 +104,67 @@ function Dashboard() {
 		</Menu.Menu>
 	      </Container>
 	    </Menu>
+)
+
+function Dashboard() {
+
+	const dispatch = useDispatch()
+	const userID = useSelector(selectUserID)
+	const firstName = useSelector(selectFirstName)
+	const lastName = useSelector(selectLastName)
+	const role = useSelector(selectRole)
+	const level = useSelector(selectLevel)
+	const experience = useSelector(selectExperience)
+	const exercises = useSelector(selectUserExercises)
+	const isFetchingUserData = useSelector(selectIsFetchingData)
+	const userDataFetched = useSelector(selectUserDataFetched)
+	const userData = {userID, firstName, lastName, role, level, experience, exercises}
+
+	useEffect(() => {
+		dispatch(getAuthenticatedUserID())
+	}, [userDataFetched])
+
+
+	return (
+	  <div>
+	    {!isAuth() ? <Redirect to="/" /> : null}
+	    {DashboardMenu()}
 
 	    <Container text style={{ marginTop: '4em' }}>
-	      <Header as='h1'>Semantic UI React Fixed Template</Header>
-	      <p>This is a basic fixed menu template using fixed size containers.</p>
-	      <p>User ID: {userID}</p>
-	      <p>First Name: {firstName}</p>
-	      <p>Last Name: {lastName}</p>
-	      <p>Role: {role}</p>
-	      <p>Level: {level}</p>
-	      <p>Experience: {experience}</p>
-	      <p>
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur gravida congue mauris, sit amet tincidunt purus consectetur eget. Vivamus quam ante, varius eu nulla sed, rutrum scelerisque dui. Donec ligula lorem, tincidunt at ultricies a, posuere eget velit. In non est id justo consectetur egestas. Morbi ex elit, fringilla nec tristique non, rutrum in urna. Nam vel enim sed purus viverra consequat a nec odio. Duis vulputate mollis dolor, ac interdum elit molestie vitae. Aenean eget lacus vitae turpis pretium auctor ac ac nibh. Donec nec elementum orci. Nulla elementum tincidunt ligula ut dapibus. Morbi ultrices mattis erat, ultricies aliquet ipsum dapibus nec. Nam aliquet, magna quis consequat ultrices, nulla tortor congue augue, non placerat enim dui sed velit. Quisque porttitor nisi tempor dapibus rutrum.
+	      <Header as='h1'><Image src={`https://avatars.dicebear.com/api/bottts/${firstName}${lastName}.svg`} avatar />{firstName} {lastName}</Header>
+		  <Header.Subheader style={{color: 'grey'}}>ID: {userID}</Header.Subheader>
+	      <p style={{color: 'grey'}}>Role: {role}</p>
+	      <p>Level: {level}  <br/>
+	      Experience: {experience}</p>
+	      <Progress indicating percent={parseInt(experience+9000)/100} progress color='teal'/>
+		  <Header as='h3'>Your exercises:</Header>
 
-	      </p>
-	<p>
-	Vivamus mollis quis dui non aliquet. Mauris gravida consequat facilisis. Pellentesque laoreet lorem diam, sit amet varius massa imperdiet a. Suspendisse eu elit malesuada, aliquet quam a, ultricies nisl. Curabitur maximus, elit nec vestibulum porttitor, enim leo rutrum augue, ut venenatis ipsum ex vitae orci. Proin fringilla malesuada erat, vel posuere ligula vulputate ac. Vivamus scelerisque facilisis sapien, in laoreet turpis faucibus iaculis. Etiam ullamcorper leo eget mi egestas suscipit. Phasellus eleifend vulputate lectus, quis imperdiet turpis semper a. Donec nisl libero, malesuada eu odio a, consectetur vehicula velit. Sed sed suscipit ex. In vel erat ullamcorper, suscipit nibh a, eleifend neque.
-		</p>
+		  <Grid columns={2} stackable container>
 
-		<p>
-	Donec pretium maximus elementum. Donec sollicitudin mi eget porttitor faucibus. Duis ac porttitor mauris. Mauris et tempus enim. Suspendisse semper risus diam, eget faucibus neque interdum quis. Donec fringilla sed elit nec pellentesque. Sed aliquet commodo iaculis. Nam sodales ligula eget eros pharetra, et posuere neque elementum. Donec rutrum augue quis lectus feugiat placerat. Quisque ullamcorper ante aliquet, ultricies justo non, euismod metus. Nam a tortor quis sem ornare tincidunt in ut erat. Sed nec mi enim. Integer vitae varius enim, dictum lacinia mi. Phasellus lacus diam, fringilla eu finibus eget, finibus et magna. Donec turpis sem, scelerisque fringilla nibh dapibus, porttitor eleifend dui. In ut mattis massa.
-		</p>
-	<p>
-	Nullam feugiat gravida eros non tincidunt. Etiam sed finibus risus. Quisque sed facilisis elit, id hendrerit eros. Cras eu maximus neque. Nunc egestas justo congue tempor consectetur. In interdum placerat leo, quis porttitor odio laoreet id. Sed condimentum ultricies libero, et rhoncus leo accumsan in. Pellentesque non metus cursus, sagittis magna ut, efficitur leo. Fusce eu nulla lorem.
-	</p>
-	<p>
-	Mauris rutrum eros eget dui lacinia, at fringilla metus scelerisque. Cras arcu quam, ornare ut felis in, hendrerit maximus orci. Sed vestibulum elit vitae eros ullamcorper, sit amet imperdiet enim ultricies. Morbi luctus et nunc non dapibus. In molestie aliquet erat, at finibus ipsum auctor in. Phasellus a lobortis arcu. Nunc gravida, magna nec luctus rhoncus, odio lacus dignissim elit, sed dignissim tellus justo vel est. Aliquam erat volutpat.
-	</p>
+		  <Grid.Row>
+		  	<Grid.Column style={{ paddingLeft: '0'}}>
+				    {ExerciseListCard("Present Simple",{section:"Grammar",category:"Tenses", subcategory:"Present"},"100","Easy","green")}
+				</Grid.Column>
+
+		  	<Grid.Column style={{ paddingRight: '0'}}>
+				    {ExerciseListCard("Present Continuous",{section:"Grammar",category:"Tenses", subcategory:"Present"},"100","Easy","green")}
+				</Grid.Column>
+		  </Grid.Row>
+
+		  <Grid.Row>
+		  	<Grid.Column style={{ paddingLeft: '0'}}>
+				    {ExerciseListCard("Present Perfect",{section:"Grammar",category:"Tenses", subcategory:"Present"},"80","Intermediate","orange")}
+			</Grid.Column>
+		  	<Grid.Column style={{ paddingRight: '0'}}>
+				    {ExerciseListCard("Past Perfect",{section:"Grammar",category:"Tenses", subcategory:"Past"},"10","Advanced","red")}
+			</Grid.Column>
+		  </Grid.Row>
+
+		  </Grid>
+
+			<Divider/>
 	    </Container>
-
-	    <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '5em 0em' }}>
-	      <Container textAlign='center'>
-		<Grid divided inverted stackable>
-		  <Grid.Column width={3}>
-		    <Header inverted as='h4' content='Group 1' />
-		    <List link inverted>
-		      <List.Item as='a'>Link One</List.Item>
-		      <List.Item as='a'>Link Two</List.Item>
-		      <List.Item as='a'>Link Three</List.Item>
-		      <List.Item as='a'>Link Four</List.Item>
-		    </List>
-		  </Grid.Column>
-		  <Grid.Column width={3}>
-		    <Header inverted as='h4' content='Group 2' />
-		    <List link inverted>
-		      <List.Item as='a'>Link One</List.Item>
-		      <List.Item as='a'>Link Two</List.Item>
-		      <List.Item as='a'>Link Three</List.Item>
-		      <List.Item as='a'>Link Four</List.Item>
-		    </List>
-		  </Grid.Column>
-		  <Grid.Column width={3}>
-		    <Header inverted as='h4' content='Group 3' />
-		    <List link inverted>
-		      <List.Item as='a'>Link One</List.Item>
-		      <List.Item as='a'>Link Two</List.Item>
-		      <List.Item as='a'>Link Three</List.Item>
-		      <List.Item as='a'>Link Four</List.Item>
-		    </List>
-		  </Grid.Column>
-		  <Grid.Column width={7}>
-		    <Header inverted as='h4' content='Footer Header' />
-		    <p>
-		      Extra space for a call to action inside the footer that could help re-engage users.
-		    </p>
-		  </Grid.Column>
-		</Grid>
-
-		<Divider inverted section />
-		<Image centered size='mini' src={Logo}/>
-		<List horizontal inverted divided link size='small'>
-		  <List.Item as='a' href='#'>
-		    Site Map
-		  </List.Item>
-		  <List.Item as='a' href='#'>
-		    Contact Us
-		  </List.Item>
-		  <List.Item as='a' href='#'>
-		    Terms and Conditions
-		  </List.Item>
-		  <List.Item as='a' href='#'>
-		    Privacy Policy
-		  </List.Item>
-		</List>
-	      </Container>
-	    </Segment>
+	    <Footer/>	
 	  </div>
 	)
 }
